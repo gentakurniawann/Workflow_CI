@@ -22,17 +22,17 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 input_example = X_train[0:5]
 
-with mlflow.start_run():
-    mlflow.autolog()
-    model = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=42)
-    mlflow.sklearn.log_model(
-        sk_model=model,
-        artifact_path="model",
-        input_example=input_example
-    )
-    
-    model.fit(X_train, y_train)
-    accuracy = model.score(X_test, y_test)
-    mlflow.log_metric("accuracy", accuracy)
+mlflow.autolog()
+model = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=42)
+
+model.fit(X_train, y_train)
+accuracy = model.score(X_test, y_test)
+mlflow.log_metric("accuracy", accuracy)
+
+mlflow.sklearn.log_model(
+    sk_model=model,
+    artifact_path="model",
+    input_example=input_example
+)
 
 print("Basic modelling and autologging completed successfully!")
