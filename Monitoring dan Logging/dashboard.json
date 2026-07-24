@@ -1,0 +1,66 @@
+{
+  "title": "muhammad_genta_kmw35",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Total API Requests",
+      "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8},
+      "targets": [{"expr": "api_requests_total", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Total API Errors",
+      "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8},
+      "targets": [{"expr": "api_errors_total", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "API Latency",
+      "gridPos": {"x": 0, "y": 8, "w": 12, "h": 8},
+      "targets": [{"expr": "rate(api_latency_seconds_sum[1m]) / rate(api_latency_seconds_count[1m])", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Total Predictions",
+      "gridPos": {"x": 12, "y": 8, "w": 12, "h": 8},
+      "targets": [{"expr": "model_predictions_total", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Prediction Values",
+      "gridPos": {"x": 0, "y": 16, "w": 12, "h": 8},
+      "targets": [{"expr": "rate(model_prediction_values_sum[1m]) / rate(model_prediction_values_count[1m])", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Model Load Time",
+      "gridPos": {"x": 12, "y": 16, "w": 12, "h": 8},
+      "targets": [{"expr": "model_load_time_seconds", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Process Memory",
+      "gridPos": {"x": 0, "y": 24, "w": 12, "h": 8},
+      "targets": [{"expr": "process_memory_usage_bytes", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Process CPU",
+      "gridPos": {"x": 12, "y": 24, "w": 12, "h": 8},
+      "targets": [{"expr": "process_cpu_usage_percent", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Active Requests",
+      "gridPos": {"x": 0, "y": 32, "w": 12, "h": 8},
+      "targets": [{"expr": "api_active_requests", "refId": "A"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Uptime",
+      "gridPos": {"x": 12, "y": 32, "w": 12, "h": 8},
+      "targets": [{"expr": "process_uptime_seconds", "refId": "A"}]
+    }
+  ],
+  "schemaVersion": 39
+}
