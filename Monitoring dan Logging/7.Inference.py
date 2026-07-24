@@ -10,10 +10,8 @@ import random
 
 app = FastAPI()
 
-# Mount metrics endpoint
 app.mount("/metrics", metrics_app)
 
-# 10 Prometheus Metrics
 REQUEST_COUNT = Counter("api_requests_total", "Total API requests")
 ERROR_COUNT = Counter("api_errors_total", "Total API errors")
 LATENCY = Histogram("api_latency_seconds", "API latency in seconds")
@@ -43,9 +41,7 @@ def predict():
     start = time.time()
     
     try:
-        # Simulate model inference latency
         time.sleep(random.uniform(0.01, 0.1))
-        # Simulated prediction for Breast Cancer (0: malignant, 1: benign)
         pred = random.choice([0, 1])
         
         PREDICTION_COUNT.inc()

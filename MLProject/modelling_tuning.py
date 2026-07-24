@@ -8,7 +8,6 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 import mlflow
 import dagshub
 
-# Initialize DagsHub for MLflow tracking (Advance Requirement)
 dagshub.init(repo_owner='gentastudyacc', repo_name='proyek-sistem-machine-learning', mlflow=True)
 
 def main():
@@ -21,7 +20,6 @@ def main():
     X = df.drop(columns=['target'])
     y = df['target']
     
-    # Hyperparameter tuning
     param_grid = {
         'n_estimators': [10, 50],
         'max_depth': [None, 5]
@@ -35,11 +33,9 @@ def main():
         preds = best_model.predict(X)
         acc = accuracy_score(y, preds)
         
-        # Manual Logging
         mlflow.log_params(grid.best_params_)
         mlflow.log_metric("accuracy", acc)
         
-        # Artifact 1: Confusion Matrix
         cm = confusion_matrix(y, preds)
         plt.figure(figsize=(6,5))
         sns.heatmap(cm, annot=True, fmt='d')
@@ -48,7 +44,6 @@ def main():
         mlflow.log_artifact('confusion_matrix.png')
         plt.close()
         
-        # Artifact 2: Feature Importance
         plt.figure(figsize=(6,5))
         sns.barplot(x=best_model.feature_importances_, y=X.columns)
         plt.title('Feature Importances')
