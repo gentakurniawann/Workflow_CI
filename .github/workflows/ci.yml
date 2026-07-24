@@ -1,22 +1,53 @@
-name: Build Docker Image
+name: CI Pipeline
 
 on:
   push:
-    paths:
-      - 'MLProject/**'
-      - '.github/workflows/ci.yml'
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup MLflow
-        run: pip install mlflow
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12.7"
 
-      - name: Build Docker Image from MLProject
+      - name: Install Dependencies
         run: |
-          cd MLProject
-          mlflow models build-docker -m "models:/dummy/1" -n mrbanyakangka/proyek-sistem-machine-learning:latest || echo "Build skipped to avoid MLflow model download error, focusing on CI pipeline success."
+          python -m pip install --upgrade pip
+          pip install mlflow pandas scikit-learn dagshub matplotlib seaborn
+
+      - name: Train Machine Learning Model (Basic)
+        run: |
+          python modelling.py
+          
+      - name: Upload MLflow Runs (Skilled)
+        uses: actions/upload-artifact@v4
+        with:
+          name: mlruns-artifact
+          path: mlruns/
+          retention-days: 7
+
+      # Advanced Criteria: Build and Push Docker Image
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          
+      - name: Build and Push Docker Image (Advanced)
+        uses: docker/build-push-action@v4
+        with:
+          context: "Monitoring dan Logging"
+          file: "Monitoring dan Logging/Dockerfile"
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/ml-monitoring:latest
