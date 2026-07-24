@@ -14,10 +14,10 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12.7"
 
@@ -38,15 +38,15 @@ jobs:
           path: MLProject/mlruns/
           retention-days: 7
       - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
       - name: Build and Push Docker Image (Advanced)
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: "Monitoring dan Logging"
           file: "Monitoring dan Logging/Dockerfile"
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/ml-monitoring:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ml-monitoring:latest
