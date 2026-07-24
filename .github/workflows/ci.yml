@@ -29,7 +29,7 @@ jobs:
       - name: Train Machine Learning Model (Basic)
         run: |
           cd MLProject
-          mlflow run . --env-manager=local
+          mlflow run . --env-manager=local --experiment-name="Latihan Breast Cancer - Basic"
           
       - name: Upload MLflow Runs (Skilled)
         uses: actions/upload-artifact@v4

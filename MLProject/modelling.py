@@ -6,8 +6,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 import os
 
-mlflow.set_experiment("Latihan Breast Cancer - Basic")
-
 data_path = os.path.join("preprocessing", "dataset_preprocessing", "breast_cancer_processed.csv")
 if not os.path.exists(data_path):
     from sklearn.datasets import load_breast_cancer
